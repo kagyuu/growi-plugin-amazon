@@ -17,7 +17,7 @@ export const plugin: Plugin = function() {
     visit(tree, (node) => {
       const n = node as unknown as GrowiNode;
       try {
-        if (n.type === 'leafGrowiPluginDirective' && n.name === 'calendar') {
+        if (n.type === 'leafGrowiPluginDirective' && n.name === 'today') {
           n.type = 'html';
           n.value = `<div style="color: red;">TODAY IS TODAY</div>`;
           console.log(n);
