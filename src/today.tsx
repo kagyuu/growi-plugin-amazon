@@ -41,15 +41,15 @@ const createTodayNode = function() {
   html.push('<fieldset>');
   html.push('<legend>' + now.toISOString().slice(0, 10) + '</legend>');
   html.push(year.toString());
-  html.push('<br');
+  html.push('<br/>');
   html.push(progress(new Date(year, 0, 1), new Date(year + 1, 0, 1), now));
-  html.push('<br');
+  html.push('<br/>');
   html.push(now.toLocaleDateString('en', {month: 'long'}));
-  html.push('<br');
+  html.push('<br/>');
   html.push(progress(new Date(year, month, 1), new Date(year, month+1, 1), now));
-  html.push('<br');
+  html.push('<br/>');
   html.push(now.toLocaleDateString('en', {weekday: 'long'}));
-  html.push('<br');
+  html.push('<br/>');
   html.push(progress(new Date(year, month, date), new Date(year, month, date + 1), now));
   html.push('</fieldset>');
 
