@@ -47,7 +47,7 @@ const createTodayNode = function() {
   const nextMonday = formerMonday + 7;
 
   var html = [];
-  html.push('<fieldset style="border:dotted 2px lightgray">');
+  html.push('<fieldset style="border:solid 1px lightgray; padding:10px; width:150px;">');
   html.push('<legend>' + now.toISOString().slice(0, 10) + '</legend>');
   html.push(year.toString());
   html.push('<br/>');
