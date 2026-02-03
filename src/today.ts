@@ -32,7 +32,7 @@ const createTodayNode = function() {
   const now = new Date();
 
   const year = now.getFullYear();
-  const month = now.getMonth() + 1;
+  const month = now.getMonth();
   const date = now.getDate();
   const day = now.getDay();
 
@@ -47,7 +47,7 @@ const createTodayNode = function() {
   html.push(progress(new Date(year, month, date), new Date(year, month, date + 1), now));
   html.push('/fieldset>');
 
-  return html.join('\n');
+  return html.join('');
 }
 
 const msecInDay = 24 * 60 * 60 * 1000;
