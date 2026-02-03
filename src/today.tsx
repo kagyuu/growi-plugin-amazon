@@ -17,9 +17,14 @@ export const plugin: Plugin = function() {
       if (n.name !== 'today') return;
 
       n.type = 'html';
-      n.value = '<div>' + createTodayNode() + '</div>'
-      //n.value = createTodayNode();
-      console.log(n);
+      n.value = '<div id="today"></div>'
+
+      const id = setInterval(() => {
+        if (document.querySelector('#today') != null) {
+          document.querySelector('#today')!.innerHTML = createTodayNode();
+          clearInterval(id);
+        }
+      }, 100);
     });
   };
 };
