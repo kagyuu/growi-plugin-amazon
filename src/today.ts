@@ -7,10 +7,6 @@ interface GrowiNode extends Node {
   attributes: {[key: string]: string}
   children: GrowiNode[];
   value: string;
-  position: {
-    start: { line: number; column: number; offset: number; };
-    end: { line: number; column: number; offset: number; };
-  }
 }
 
 export const plugin: Plugin = function() {
@@ -49,7 +45,7 @@ const createTodayNode = function() {
 
   console.log(html.join(''));
 
-  return html.join('');
+  return html.join();
 }
 
 const msecInDay = 24 * 60 * 60 * 1000;
