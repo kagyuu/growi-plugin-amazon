@@ -1,6 +1,8 @@
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
 
+import './today.css'
+
 interface GrowiNode extends Node {
   name: string;
   type: string;
@@ -16,6 +18,8 @@ export const plugin: Plugin = function() {
 
       if (n.name !== 'today') return;
 
+      const attributeDate = n.attributes['date'];
+
       // UUIDを計算する
       const uuid = "today-" + Math.random().toString(36).slice(2);
 
@@ -26,7 +30,7 @@ export const plugin: Plugin = function() {
 
       const id = setInterval(() => {
         if (document.querySelector('#' + uuid) != null) {
-          document.querySelector('#' + uuid)!.innerHTML = createTodayNode();
+          document.querySelector('#' + uuid)!.innerHTML = createTodayNode(attributeDate);
           clearInterval(id);
         }
       }, 100);
@@ -34,8 +38,8 @@ export const plugin: Plugin = function() {
   };
 };
 
-const createTodayNode = function() {
-  const now = new Date();
+const createTodayNode = function(attributeDate: string) {
+  const now = attributeDate ? new Date(attributeDate) : new Date();
 
   const year = now.getFullYear();
   const month = now.getMonth();
@@ -47,7 +51,7 @@ const createTodayNode = function() {
   const nextMonday = formerMonday + 7;
 
   var html = [];
-  html.push('<fieldset style="border:solid 1px lightgray; padding:10px; width:150px;">');
+  html.push('<fieldset class="today-fieldset">');
   html.push('<legend>' + now.toISOString().slice(0, 10) + '</legend>');
   html.push(year.toString());
   html.push('<br/>');
@@ -76,11 +80,18 @@ const progress = function(start: Date, end: Date, now: Date): string {
   const current = (now.getTime() - start.getTime()) / msecInDay;
   const percent = Math.floor((current / total) * 100);
 
-  const current_rounded = current.toFixed(1);
+  const current_rounded = current.toFixed(2);
 
-  return `<meter value="${current}" min="0" max="${total}" title="${percent}% (${current_rounded}/${total})" style="width:75px">${percent}% (${current_rounded}/${total})</meter>`;
+  return `<meter value="${current}" min="0" max="${total}" title="${percent}% (${current_rounded}/${total})">${percent}% (${current_rounded}/${total})</meter>`;
 }
 
+/**
+ * ISO 8601 週番号を計算する.
+ * 年の最初の木曜日を含む週が第1週となる。
+ * 年初の曜日が金曜・土曜・日曜の場合、前年の最終週番号を返す。
+ * @param now 現在時刻
+ * @returns 週番号
+ */
 const calcIsoWeekNumber = function(now: Date): number {
   const year = now.getFullYear();
   const weekNumber = _calcIsoWeekNumber(now, year);
