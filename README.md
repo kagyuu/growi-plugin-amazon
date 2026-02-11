@@ -1,4 +1,4 @@
-# GROIW Amazon Plugin
+# GROWI Amazon Plugin
 
 This is a amazon plugin for GROWI. It creates a link to amazon with image.
 
@@ -12,7 +12,7 @@ Install a plugin in admin panel.
 $amazon(asin=4873119235)
 ```
 
-That is changed to the link https://www.amazon.co.jp/dp/4873119235.
+That will be changed to the link https://www.amazon.co.jp/dp/4873119235.
 If the asin is ISBN10 or ISBN13, ie. that is a book, the link is a book picture from hanmoto.com .
 
 ## Options
